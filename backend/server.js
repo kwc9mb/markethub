@@ -16,9 +16,7 @@ app.use(express.json());
 const port = process.env.PORT || 5000;
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://doadmin:hW245rf873p9O6oE@db-mongodb-nyc3-82778-f53ef0a2.mongo.ondigitalocean.com/admin?authSource=admin&replicaSet=db-mongodb-nyc3-82778&tls=true', {
-  useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGO_URI,)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Could not connect to MongoDB', err));
 
