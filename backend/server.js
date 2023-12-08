@@ -1,9 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
-//const dotenv = require('dotenv');
+const dotenv = require('dotenv');
 
 // Load environment variables
-//dotenv.config();
+dotenv.config();
 
 // Import routes
 const marketRoutes = require('./routes/market');
@@ -11,23 +11,18 @@ const userRoutes = require('./routes/user');
 const vendorRoutes = require('./routes/vendor');
 
 const app = express();
-
+app.use(express.json());
 
 const port = process.env.PORT || 5000;
 
 // Connect to MongoDB
-// Define the MongoDB connection URI
-const MONGO_URI = 'mongodb+srv://doadmin:hW245rf873p9O6oE@db-mongodb-nyc3-82778-f53ef0a2.mongo.ondigitalocean.com/admin?authSource=admin&replicaSet=db-mongodb-nyc3-82778&tls=true';
-
-// Connect to MongoDB
-mongoose.connect(MONGO_URI, {
+mongoose.connect('mongodb+srv://doadmin:hW245rf873p9O6oE@db-mongodb-nyc3-82778-f53ef0a2.mongo.ondigitalocean.com/admin?authSource=admin&replicaSet=db-mongodb-nyc3-82778&tls=true', {
   useUnifiedTopology: true,
 })
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Could not connect to MongoDB', err));
 
 // Existing middleware and routes
-app.use(express.json()); // For parsing application/json
 app.use('/api/markets', marketRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/vendors', vendorRoutes);
